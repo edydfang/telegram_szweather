@@ -4,7 +4,7 @@ from telegram.ext import Updater, CommandHandler  # MessageHandler, Filters
 
 
 def main():
-    updater = Updater(token='274017590:AAEvwhUM_MvyMio6Ux8Xdm68ho89RJ1tqwc')
+    updater = Updater(token='274017590:AAG0RbxIVTV62ZQpFRwMwIBgZGH_GICjlZE')
     dispatcher = updater.dispatcher
     szweather_handler = CommandHandler('sustech_weather', sustech_weather)
     dispatcher.add_handler(szweather_handler)
