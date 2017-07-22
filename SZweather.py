@@ -23,6 +23,7 @@ def weather(bot, update):
 
 # parameter to be changed
 def getweather(location=None):
+    # new api js example http://wx.szmb.gov.cn/MobileWeather/script/nadforecastv1.js
     url = 'http://wx.szmb.gov.cn/WeChat/map?lng=113.993088&lat=22.603228'
     response = urllib.request.urlopen(url)
     data = response.read()  # a `bytes` object
