@@ -7,9 +7,10 @@ from telegram.ext import Updater, CommandHandler  # MessageHandler, Filters
 
 
 def main():
+    TOKEN = "274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk"
     logging.basicConfig(stream=sys.stdout, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logging.info("Start Servering...")
-    updater = Updater(token='274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk')
+    updater = Updater(TOKEN)
     dispatcher = updater.dispatcher
     szweather_handler = CommandHandler('sustech_weather', sustech_weather)
     dispatcher.add_handler(szweather_handler)
@@ -19,9 +20,7 @@ def main():
     just for heroku
     '''
     import os
-    TOKEN = "274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk"
     PORT = int(os.environ.get('PORT', '5000'))
-    updater = Updater(TOKEN)
     # add handlers
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
