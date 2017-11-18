@@ -1,21 +1,26 @@
 #!/usr/bin/env python3
 #  code: utf-8
 import urllib.request, json, logging
+import sys
 from telegram.ext import Updater, CommandHandler  # MessageHandler, Filters
 
 
 
 def main():
+    logging.info("Start Servering...")
     updater = Updater(token='274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk')
     dispatcher = updater.dispatcher
     szweather_handler = CommandHandler('sustech_weather', sustech_weather)
     dispatcher.add_handler(szweather_handler)
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+    logging.basicConfig(stream=sys.stdout, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+    logging.info("Start Polling...")
     updater.start_polling()
 
 
 def sustech_weather(bot, update):
+    logging.info("Received command.")
     bot.sendMessage(chat_id=update.message.chat_id, text=getweather())  # getweather()
+    logging.info("Send successfully.")
 
 
 # get last location and print weather
