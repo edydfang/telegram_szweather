@@ -14,7 +14,8 @@ def main():
     dispatcher.add_handler(szweather_handler)
     logging.basicConfig(stream=sys.stdout, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logging.info("Start Polling...")
-    updater.start_polling()
+    #updater.start_polling()
+    updater.start_webhook(listen='0.0.0.0', port=8443, url_path='AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk',webhook_url='https://telegram-weather.herokuapp.com/AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk')
 
 
 def sustech_weather(bot, update):
