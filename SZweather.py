@@ -27,6 +27,7 @@ def main():
                           port=PORT,
                           url_path=TOKEN)
     updater.bot.set_webhook("https://telegram-weather.herokuapp.com/" + TOKEN)
+    updater.idle()
     # end heroku
 
 
