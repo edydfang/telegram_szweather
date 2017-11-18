@@ -7,15 +7,27 @@ from telegram.ext import Updater, CommandHandler  # MessageHandler, Filters
 
 
 def main():
+    logging.basicConfig(stream=sys.stdout, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logging.info("Start Servering...")
     updater = Updater(token='274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk')
     dispatcher = updater.dispatcher
     szweather_handler = CommandHandler('sustech_weather', sustech_weather)
     dispatcher.add_handler(szweather_handler)
-    logging.basicConfig(stream=sys.stdout, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logging.info("Start Polling...")
     #updater.start_polling()
-    updater.start_webhook(listen='0.0.0.0', port=8443, url_path='AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk',webhook_url='https://telegram-weather.herokuapp.com/AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk')
+    '''
+    just for heroku
+    '''
+    import os
+    TOKEN = "274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk"
+    PORT = int(os.environ.get('PORT', '5000'))
+    updater = Updater(TOKEN)
+    # add handlers
+    updater.start_webhook(listen="0.0.0.0",
+                          port=PORT,
+                          url_path=TOKEN)
+    updater.bot.set_webhook("https://telegram-weather.herokuapp.com/" + TOKEN)
+    # end heroku
 
 
 def sustech_weather(bot, update):
