@@ -3,12 +3,13 @@
 import requests
 import logging
 import json.decoder
-#import urllib.request, json
+import config
 import urllib.error
 import sys
 from telegram.ext import Updater, CommandHandler  # MessageHandler, Filters
 
 DEBUG_MODE = False
+TOKEN = config.TOKEN
 
 '''
 sustech_weather - SUSTech Weather
@@ -16,7 +17,6 @@ sustech_forecast - Weather for next week in SUSTech
 '''
 
 def main():
-    TOKEN = "274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk"
     logging.basicConfig(stream=sys.stdout, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logging.info("Start Servering...")
     updater = Updater(TOKEN)
