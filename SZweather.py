@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 #  code: utf-8
-import urllib.request, json, logging
+import requests
+import logging
+import json.decoder
+#import urllib.request, json
 import urllib.error
 import sys
 from telegram.ext import Updater, CommandHandler  # MessageHandler, Filters
@@ -46,11 +49,13 @@ def sustech_forecast(bot, update):
     logging.info("Send successfully.")
 
 def get_API_data(location=(22.597700, 114.000110)):
-    url = 'http://wx.szmb.gov.cn/MobileWeather/position/query?latitude=%.6f&longitude=%.6f' % location
-    response = urllib.request.urlopen(url)
-    data = response.read()  # a `bytes` object
-    text = data.decode('utf-8')  # a `str`; this step can't be used if data is binary
-    info = json.loads(text)
+    headers = { 'Host' : 'wx.szmb.gov.cn'}
+    url = 'http://121.11.81.163/MobileWeather/position/query?latitude=%.6f&longitude=%.6f' % location
+    response = requests.get(url, headers = headers)
+    # response = urllib.request.urlopen(url, headers = headers)
+    logging.info(response.text)
+    response.encoding = 'utf-8'
+    info = response.json()  # a `bytes` object
     return info
 
 def sustech_weather(bot, update):
@@ -77,11 +82,9 @@ def getweather(location=(22.597700, 114.000110)):
         output += 'Rain within 1 Hour: %s mm\n' % info['r01h']
         output += 'Rain within 3 Hours: %s mm\n' % info['r03h']
         output += 'Wind: %s\n' % info['windStr']
-    except (KeyError,urllib.error.HTTPError):
+    except (KeyError,urllib.error.HTTPError, urllib.error.URLError, json.decoder.JSONDecodeError):
         logging.info("Weather querying failed.")
         output = "Sorry, weather querying failed."
-
-
     return output
 
 # parameter to be changed
@@ -95,7 +98,7 @@ def getforecast(location=(22.597700, 114.000110)):
             newline = "[%s %s]\nTemp: %s~%s\u2103\nWeather: %s\n" \
                       % (day['formatTime'], day['week'], day['minTemp'], day['maxTemp'], day['weather'])
             output += newline
-    except KeyError:
+    except (KeyError,urllib.error.HTTPError, urllib.error.URLError, json.decoder.JSONDecodeError):
         logging.info("Weather querying failed.")
         output = "Sorry, weather querying failed."
     return output
