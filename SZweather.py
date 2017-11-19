@@ -7,6 +7,11 @@ from telegram.ext import Updater, CommandHandler  # MessageHandler, Filters
 
 DEBUG_MODE = False
 
+'''
+sustech_weather - SUSTech Weather
+sustech_forecast - Weather for next week in SUSTech
+'''
+
 def main():
     TOKEN = "274017590:AAHwfPetzzkUdfdUtK--L1M793bj2TiwRbk"
     logging.basicConfig(stream=sys.stdout, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -83,7 +88,7 @@ def getweather(location=(22.597700, 114.000110)):
 def getforecast(location=(22.597700, 114.000110)):
     # new api js example http://wx.szmb.gov.cn/MobileWeather/script/nadforecastv1.js
     info = get_API_data(location)
-    output = "Weather Forecast for next week:"
+    output = "Weather Forecast for next week:\n"
     try:
         # output
         for day in info['week']:
