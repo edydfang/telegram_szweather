@@ -87,7 +87,7 @@ def getforecast(location=(22.597700, 114.000110)):
     try:
         # output
         for day in info['week']:
-            newline = "[%s %s]\nTemp: %s~%s\u2103\nWeather:%s\n" \
+            newline = "[%s %s]\nTemp: %s~%s\u2103\nWeather: %s\n" \
                       % (day['formatTime'], day['week'], day['minTemp'], day['maxTemp'], day['weather'])
             output += newline
     except KeyError:
